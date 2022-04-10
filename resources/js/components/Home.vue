@@ -15,6 +15,7 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
+                      <th>Sl #</th>
                       <th>Dzongkhag Name</th>
                       <th>Gewog Name</th>
                       <th>Lhakhang Name</th>
@@ -26,9 +27,10 @@
                     </tr>
                   </thead>
                   <tbody >
-                    <tr v-for="detail in details.data" :key="detail.id">
-                      <td>{{ detail.dzongkhag_id}}</td>
-                      <td>{{ detail.gewog_id}}</td>
+                    <tr v-for="detail in details" :key="detail.id">
+                      <td>{{ detail.dzo_name}}</td>
+                      <td>{{ detail.dzo_name}}</td>
+                      <td>{{ detail.geo_name}}</td>
                       <td>{{ detail.lhakhang_name}}</td>
                       <td>{{ detail.work_type}}</td>
                       <td>{{ detail.work_desc}}</td>
@@ -48,12 +50,12 @@
                 </table>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer">
+              <!-- <div class="card-footer">
                     <pagination :data="details" @pagination-change-page="getResults">
                         <span slot="prev-nav">&lt; Previous</span>
 	                    <span slot="next-nav">Next &gt;</span>
                     </pagination>
-              </div>
+              </div> -->
             </div>
             <!-- /.card -->
           </div>
@@ -178,12 +180,12 @@
 
         methods: {
             // This method is for pagination
-            getResults(page = 1) {
-			        axios.get('api/home?page=' + page)
-				        .then(response => {
-					        this.details = response.data;
-				      });
-		        },
+            // getResults(page = 1) {
+			//         axios.get('api/home?page=' + page)
+			// 	        .then(response => {
+			// 		        this.details = response.data;
+			// 	      });
+		    //     },
 
             // Open new modal
             newModal () {
@@ -253,6 +255,13 @@
             // get admin
             loadHome () {
                 axios.get("/api/home").then(({ data }) => (this.details = data));
+                // axios.get("/api/home").then(response => {
+                //     this.details
+                //     console.log(response);
+                // })
+                // .catch(error => {
+                //     console.log(error);
+                // });
             },
 
             // // Create new data set

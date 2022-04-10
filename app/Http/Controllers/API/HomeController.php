@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Bhutan;
 
 class HomeController extends Controller
@@ -15,7 +16,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return Bhutan::latest()->paginate(2);
+        // return Bhutan::latest()->paginate(2);
+        $details = DB::table('bhutans')
+            ->join('dzongkhags', 'bhutans.dzongkhag_id', '=', 'dzongkhags.id')
+            ->join('gewogs', 'bhutans.gewog_id', '=', 'gewogs.id')
+            ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return $details;
     }
 
     /**
