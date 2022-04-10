@@ -15,7 +15,6 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>Sl #</th>
                       <th>Dzongkhag Name</th>
                       <th>Gewog Name</th>
                       <th>Lhakhang Name</th>
@@ -27,8 +26,7 @@
                     </tr>
                   </thead>
                   <tbody >
-                    <tr v-for="detail in details" :key="detail.id">
-                      <td>{{ detail.dzo_name}}</td>
+                    <tr v-for="detail in details.data" :key="detail.id">
                       <td>{{ detail.dzo_name}}</td>
                       <td>{{ detail.geo_name}}</td>
                       <td>{{ detail.lhakhang_name}}</td>
@@ -50,12 +48,12 @@
                 </table>
               </div>
               <!-- /.card-body -->
-              <!-- <div class="card-footer">
+              <div class="card-footer">
                     <pagination :data="details" @pagination-change-page="getResults">
                         <span slot="prev-nav">&lt; Previous</span>
 	                    <span slot="next-nav">Next &gt;</span>
                     </pagination>
-              </div> -->
+              </div>
             </div>
             <!-- /.card -->
           </div>
@@ -180,12 +178,12 @@
 
         methods: {
             // This method is for pagination
-            // getResults(page = 1) {
-			//         axios.get('api/home?page=' + page)
-			// 	        .then(response => {
-			// 		        this.details = response.data;
-			// 	      });
-		    //     },
+            getResults(page = 1) {
+			        axios.get('api/home?page=' + page)
+				        .then(response => {
+					        this.details = response.data;
+				      });
+		        },
 
             // Open new modal
             newModal () {

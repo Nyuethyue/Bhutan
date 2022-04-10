@@ -22,7 +22,7 @@ class HomeController extends Controller
             ->join('gewogs', 'bhutans.gewog_id', '=', 'gewogs.id')
             ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
         return $details;
     }
@@ -48,12 +48,12 @@ class HomeController extends Controller
         // dd("jjjjj");
         // dd($request['selectedDzongkhag']);
         $validated = $request->validate([
-            'dzongkhag_id' => ['required', 'integer', 'max:191'],
-            'gewog_id' => ['required', 'integer', 'max:191'],
-            'lhakhang_name' => ['required', 'string', 'max:191'],
-            'work_type' => ['required', 'string', 'max:191'],
-            'work_desc' => ['required', 'string', 'max:191'],
-            'no_of_thangka' => ['required', 'max:191'],
+            'dzongkhag_id' => ['required', 'integer'],
+            'gewog_id' => ['required', 'integer'],
+            'lhakhang_name' => ['required', 'string', 'max:50'],
+            'work_type' => ['required', 'string'],
+            'work_desc' => ['required', 'string',],
+            'no_of_thangka' => ['required', 'max:9'],
             'remarks' => ['required', 'string', 'max:255'],
         ]);
 
@@ -102,13 +102,13 @@ class HomeController extends Controller
         $detail = Bhutan::findOrFail($id);
 
         $request->validate([
-            'dzongkhag_id' => 'required', 'integer', 'max:191',
-            'gewog_id' => 'required', 'integer', 'max:191',
-            'lhakhang_name' => 'required', 'string', 'max:191',
-            'work_type' => 'required', 'string', 'max:191',
-            'work_desc' => 'required', 'string', 'max:191',
-            'no_of_thangka' => 'required', 'max:191',
-            'remarks' => 'required', 'string', 'max:191',
+            'dzongkhag_id' => 'required', 'integer',
+            'gewog_id' => 'required', 'integer',
+            'lhakhang_name' => 'required', 'string', 'max:50',
+            'work_type' => 'required', 'string',
+            'work_desc' => 'required', 'string',
+            'no_of_thangka' => 'required', 'max:9',
+            'remarks' => 'required', 'string', 'max:255',
         ]);
 
         $detail->update($request->all());
