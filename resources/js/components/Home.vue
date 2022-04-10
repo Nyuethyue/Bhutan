@@ -2,6 +2,32 @@
     <div class="container">
         <div class="row mt-4">
           <div class="col-md-12">
+
+            <div class="d-flex">
+                <div>
+                    <div class="form-group d-flex align-items-center">
+                        <label for="paginate" class="text-nowrap mr-2 mb-0"
+                            >Filter By Dzongkhag</label>
+                        <select v-model="form.dzongkhag_id" class="form-control">
+                            <option value="">All</option>
+                            <option v-for="item in dzongkhags" :key="item.id" :value="item.id">{{ item.dzo_name }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div v-if="form.dzongkhag_id">
+                    <div class="d-flex align-items-center ml-4">
+                        <label for="paginate" class="text-nowrap mr-2 mb-0"
+                            >Gewog</label
+                        >
+                        <select v-model="form.gewog_id" class="form-control">
+                            <option value="">Select a Gewog</option>
+                            <option v-for="gewog in gewogs" :key="gewog.id" :value="gewog.id">{{ gewog.geo_name }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="card">
               <div class="card-header">
                 <div class="card-tools">
@@ -15,12 +41,12 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>Dzongkhag Name</th>
-                      <th>Gewog Name</th>
-                      <th>Lhakhang Name</th>
+                      <th>Dzongkhag</th>
+                      <th>Gewog</th>
+                      <th>Lhakhang</th>
                       <th>Work Type</th>
                       <th>Work Description</th>
-                      <th>No. of Thangka</th>
+                      <th>Thangka #</th>
                       <th>Remarks</th>
                       <th>Action</th>
                     </tr>
@@ -253,13 +279,6 @@
             // get admin
             loadHome () {
                 axios.get("/api/home").then(({ data }) => (this.details = data));
-                // axios.get("/api/home").then(response => {
-                //     this.details
-                //     console.log(response);
-                // })
-                // .catch(error => {
-                //     console.log(error);
-                // });
             },
 
             // // Create new data set

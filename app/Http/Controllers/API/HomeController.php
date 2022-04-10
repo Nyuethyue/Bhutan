@@ -17,12 +17,19 @@ class HomeController extends Controller
     public function index()
     {
         // return Bhutan::latest()->paginate(2);
+
+        // $selectedDzongkhag = request('dzongkhag_id');
+        // $selectedGewog = request('gewog_id');
+
         $details = DB::table('bhutans')
             ->join('dzongkhags', 'bhutans.dzongkhag_id', '=', 'dzongkhags.id')
             ->join('gewogs', 'bhutans.gewog_id', '=', 'gewogs.id')
             ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
+            // ->when(request('dzongkhag_id', '') != '', function($query) {
+            //     $query->where('bhutans.dzo_id', request('dzongkhag_id'));
+            // })
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(7);
 
         return $details;
     }
