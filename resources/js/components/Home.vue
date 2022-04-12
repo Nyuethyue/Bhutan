@@ -2,7 +2,6 @@
     <div class="container">
         <div class="row mt-4">
           <div class="col-md-12">
-
             <div class="d-flex">
                 <div>
                     <div class="form-group d-flex align-items-center">
@@ -21,20 +20,54 @@
                             >Gewog</label
                         >
                         <select v-model="form.gewog_id" class="form-control">
-                            <option value="">Select a Gewog</option>
+                            <option value="">All</option>
                             <option v-for="gewog in gewogs" :key="gewog.id" :value="gewog.id">{{ gewog.geo_name }}</option>
                         </select>
                     </div>
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card mx-auto">
               <div class="card-header">
-                <div class="card-tools">
-                    <button type="button" class="btn btn-success"  @click="newModal">
-                      <span  class="white">Add New</span>
-                    </button>
-                </div>
+                  <div class="row">
+                      <div class="col">
+                          <form>
+                            <div class="form-row align-items-center">
+                                <div class="col">
+                                    <input 
+                                        type="search"
+                                        class="form-control mb-2"
+                                        placeholder="Search by Lhakhang"
+                                    />
+                                </div>
+                                <div class="col">
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary mb-2"
+                                    >
+                                        Search
+                                    </button>
+                                </div>
+                                <!-- <div class="col">
+                                    <select
+                                        v-model="selectedDzongkhag"
+                                        name="dzongkhag"
+                                        class="form-control"
+                                        aria-label="Default select example"
+                                    >
+                                        <option value="">Select Dzongkhag</option>
+                                        <option v-for="item in dzongkhags" :key="item.id" :value="item.id">{{ item.dzo_name }}</option>
+                                    </select>
+                                </div> -->
+                            </div>
+                          </form>
+                      </div>
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-success"  @click="newModal">
+                            <span  class="white">Add New</span>
+                        </button>
+                    </div>
+                  </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
@@ -174,11 +207,12 @@
 
     export default {
         data: () => ({
+
+            details: {},
             dzongkhags: {},
             gewogs: {},
 
             editmode: false,
-            details: {},
 
             form: new Form({
                 id: '',
@@ -199,16 +233,34 @@
                     // console.log(response.data);
                     this.gewogs = response.data.data;
                 })
+            },
+
+            'form.dzongkhag_id': function(value) {
+                 axios.get('/api/gewogs?dzo_id='+this.form.dzongkhag_id)
+                .then(response => {
+                    // console.log(response.data);
+                    this.gewogs = response.data.data;
+                });
+                
+                this.getResults();
+            },
+
+            'form.gewog_id' : function(value) {
+                this.getResults();
             }
         },
 
         methods: {
             // This method is for pagination
             getResults(page = 1) {
-			        axios.get('api/home?page=' + page)
-				        .then(response => {
-					        this.details = response.data;
-				      });
+                axios.get('api/home?page=' 
+                    + page 
+                    + "&dzongkhag_id=" + this.form.dzongkhag_id
+                    + "&gewog_id=" + this.form.gewog_id
+                    )
+                    .then(response => {
+					    this.details = response.data;
+				    });
 		        },
 
             // Open new modal

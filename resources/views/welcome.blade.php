@@ -20,9 +20,6 @@
                     <li class="nav-item d-none d-sm-inline-block">
                         <router-link to="/" class="nav-link">Home</router-link>
                     </li>
-                    <li class="nav-item d-none d-sm-inline-block">
-                        <router-link to="/contact" class="nav-link">Contact</router-link>
-                    </li>
                 </ul>
             </nav>
 
@@ -42,12 +39,6 @@
                                     <p>
                                     Details
                                     </p>
-                                </router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link to="/report" class="nav-link">
-                                <i class="fas fa-users nav-icon green"></i>
-                                <p>Report</p>
                                 </router-link>
                             </li>
                         </ul>

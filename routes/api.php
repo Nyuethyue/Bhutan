@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\HomeController;
+use App\Http\Controllers\API\MainController;
 use App\Http\Controllers\API\DzongkhagController;
 use App\Http\Controllers\API\GewogController;
 
@@ -23,6 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResources([
     'home' => HomeController::class,
+]);
+
+Route::apiResources([
+    'getInfo' => MainController::class,
 ]);
 
 Route::get('/dzongkhags', [DzongkhagController::class, 'index']);
