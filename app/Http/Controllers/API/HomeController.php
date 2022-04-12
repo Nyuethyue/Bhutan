@@ -16,10 +16,6 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        // return Bhutan::latest()->paginate(2);
-
-        // $selectedDzongkhag = request('dzongkhag_id');
-        // $selectedGewog = request('gewog_id');
 
         $details = DB::table('bhutans')
             ->join('dzongkhags', 'bhutans.dzongkhag_id', '=', 'dzongkhags.id')
@@ -27,25 +23,47 @@ class HomeController extends Controller
             ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
             ->orderBy('created_at', 'desc')
             ->paginate(7);
+
+        if ($request->search) {
+            $details = DB::table('bhutans')
+                ->join('dzongkhags', 'bhutans.dzongkhag_id', '=', 'dzongkhags.id')
+                ->join('gewogs', 'bhutans.gewog_id', '=', 'gewogs.id')
+                ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
+                ->where('bhutans.lhakhang_name', "like", "%{$request->search}%")
+                // ->orWhere('last_name', "like", "%{$request->search}%")
+                ->orderBy('created_at', 'desc')
+                ->paginate(7);
+        }
         
         if ($request->dzongkhag_id) {
             $details = DB::table('bhutans')
-            ->join('dzongkhags', 'bhutans.dzongkhag_id', '=', 'dzongkhags.id')
-            ->join('gewogs', 'bhutans.gewog_id', '=', 'gewogs.id')
-            ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
-            ->where('bhutans.dzongkhag_id', $request->dzongkhag_id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(7);
+                ->join('dzongkhags', 'bhutans.dzongkhag_id', '=', 'dzongkhags.id')
+                ->join('gewogs', 'bhutans.gewog_id', '=', 'gewogs.id')
+                ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
+                ->where('bhutans.dzongkhag_id', $request->dzongkhag_id)
+                ->orderBy('created_at', 'desc')
+                ->paginate(7);
         } 
         if ($request->gewog_id) {
             // $employees = Employee::where('department_id', $request->department_id)->get();
             $details = DB::table('bhutans')
-            ->join('dzongkhags', 'bhutans.dzongkhag_id', '=', 'dzongkhags.id')
-            ->join('gewogs', 'bhutans.gewog_id', '=', 'gewogs.id')
-            ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
-            ->where('bhutans.gewog_id', $request->gewog_id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(7);
+                ->join('dzongkhags', 'bhutans.dzongkhag_id', '=', 'dzongkhags.id')
+                ->join('gewogs', 'bhutans.gewog_id', '=', 'gewogs.id')
+                ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
+                ->where('bhutans.gewog_id', $request->gewog_id)
+                ->orderBy('created_at', 'desc')
+                ->paginate(7);
+        }
+
+        if ($request->work_type) {
+            // $employees = Employee::where('department_id', $request->department_id)->get();
+            $details = DB::table('bhutans')
+                ->join('dzongkhags', 'bhutans.dzongkhag_id', '=', 'dzongkhags.id')
+                ->join('gewogs', 'bhutans.gewog_id', '=', 'gewogs.id')
+                ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
+                ->where('bhutans.work_type', $request->work_type)
+                ->orderBy('created_at', 'desc')
+                ->paginate(7);
         }
 
         return $details;

@@ -25,6 +25,18 @@
                         </select>
                     </div>
                 </div>
+
+                <div>
+                    <div class="form-group d-flex align-items-center">
+                        <label for="paginate" class="text-nowrap mr-2 mb-0"
+                            >Filter By Work Type</label>
+                        <select class="form-control" id="work_type" required name="work_type" v-model="form.work_type">
+                            <option value="">Select work Type</option>
+                            <option value="Thangka Painting">Thangka Painting</option>
+                            <option value="Wall Painting">Wall Painting</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <div class="card mx-auto">
@@ -35,6 +47,7 @@
                             <div class="form-row align-items-center">
                                 <div class="col">
                                     <input 
+                                        v-model.lazy="search"
                                         type="search"
                                         class="form-control mb-2"
                                         placeholder="Search by Lhakhang"
@@ -48,17 +61,6 @@
                                         Search
                                     </button>
                                 </div>
-                                <!-- <div class="col">
-                                    <select
-                                        v-model="selectedDzongkhag"
-                                        name="dzongkhag"
-                                        class="form-control"
-                                        aria-label="Default select example"
-                                    >
-                                        <option value="">Select Dzongkhag</option>
-                                        <option v-for="item in dzongkhags" :key="item.id" :value="item.id">{{ item.dzo_name }}</option>
-                                    </select>
-                                </div> -->
                             </div>
                           </form>
                       </div>
@@ -161,7 +163,6 @@
                                     <option value="Thangka Painting">Thangka Painting</option>
                                     <option value="Wall Painting">Wall Painting</option>
                                 </select>
-                                <!-- <input id="work_type" v-model="form.work_type" type="text" name="work_type" placeholder="Work Type" class="form-control"> -->
                                 <div v-if="form.errors.has('work_type')" v-html="form.errors.get('work_type')" />
                             </div>
 
@@ -172,7 +173,6 @@
                                     <option value="Detach">Detach</option>
                                     <option value="Re-Attach">Re-Attach</option>
                                 </select>
-                                <!-- <input id="work_desc" v-model="form.work_desc" type="text" name="work_desc" placeholder="Work Desc" class="form-control"> -->
                                 <div v-if="form.errors.has('work_desc')" v-html="form.errors.get('work_desc')" />
                             </div>
 
@@ -211,6 +211,7 @@
             details: {},
             dzongkhags: {},
             gewogs: {},
+            search: '',
 
             editmode: false,
 
@@ -247,7 +248,15 @@
 
             'form.gewog_id' : function(value) {
                 this.getResults();
-            }
+            },
+
+            search : function(value) {
+                this.getResults();
+            },
+
+            'form.work_type' : function(value) {
+                this.getResults();
+            },
         },
 
         methods: {
@@ -257,6 +266,8 @@
                     + page 
                     + "&dzongkhag_id=" + this.form.dzongkhag_id
                     + "&gewog_id=" + this.form.gewog_id
+                    + "&work_type=" + this.form.work_type
+                    + "&search=" + this.search
                     )
                     .then(response => {
 					    this.details = response.data;
