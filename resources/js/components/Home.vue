@@ -2,11 +2,14 @@
     <div class="container">
         <div class="row mt-4">
           <div class="col-md-12">
+            <div>
+                <h3>Filter By :</h3>
+            </div>
             <div class="d-flex">
                 <div>
                     <div class="form-group d-flex align-items-center">
                         <label for="paginate" class="text-nowrap mr-2 mb-0"
-                            >Filter By Dzongkhag</label>
+                            >Dzongkhag</label>
                         <select v-model="form.dzongkhag_id" class="form-control">
                             <option value="">All</option>
                             <option v-for="item in dzongkhags" :key="item.id" :value="item.id">{{ item.dzo_name }}</option>
@@ -27,15 +30,35 @@
                 </div>
 
                 <div>
-                    <div class="form-group d-flex align-items-center">
+                    <div class="d-flex align-items-center ml-4">
                         <label for="paginate" class="text-nowrap mr-2 mb-0"
-                            >Filter By Work Type</label>
+                            >Work Type</label>
                         <select class="form-control" id="work_type" required name="work_type" v-model="form.work_type">
-                            <option value="">Select work Type</option>
+                            <option value="">All</option>
                             <option value="Thangka Painting">Thangka Painting</option>
                             <option value="Wall Painting">Wall Painting</option>
                         </select>
                     </div>
+                </div>
+
+                <div>
+                    <div class="d-flex align-items-center ml-4">
+                        <label for="paginate" class="text-nowrap mr-2 mb-0"
+                            >Work Description</label>
+                        <select class="form-control" id="work_type" required name="work_desc" v-model="form.work_desc">
+                            <option value="">All</option>
+                            <option value="Detach">Detach</option>
+                            <option value="Re-Attach">Re-Attach</option>
+                        </select>
+                    </div> 
+                </div>
+
+                <div>
+                    <div class="d-flex align-items-center ml-4">
+                        <label for="paginate" class="text-nowrap mr-2 mb-0"
+                            >No. of Thangka</label>
+                        <input id="no_of_thangka" v-model="form.no_of_thangka" type="number" name="no_of_thangka" placeholder="No of Thangka" class="form-control">
+                    </div> 
                 </div>
             </div>
 
@@ -46,25 +69,12 @@
                           <form>
                             <div class="form-row align-items-center">
                                 <div class="col">
-                                    <input 
-                                        v-model.lazy="search"
-                                        type="search"
-                                        class="form-control mb-2"
-                                        placeholder="Search by Lhakhang"
-                                    />
-                                </div>
-                                <div class="col">
-                                    <button
-                                        type="submit"
-                                        class="btn btn-primary mb-2"
-                                    >
-                                        Search
-                                    </button>
+                                    <input id="search" v-model="search" type="text" name="search" placeholder="Search By Lhakhang" class="form-control mb-2">
                                 </div>
                             </div>
                           </form>
                       </div>
-                      <div class="card-tools">
+                      <div class="col-md-4">
                         <button type="button" class="btn btn-success"  @click="newModal">
                             <span  class="white">Add New</span>
                         </button>
@@ -257,6 +267,14 @@
             'form.work_type' : function(value) {
                 this.getResults();
             },
+
+            'form.work_desc' : function(value) {
+                this.getResults();
+            },
+
+            'form.no_of_thangka' : function(value) {
+                this.getResults();
+            },
         },
 
         methods: {
@@ -267,6 +285,8 @@
                     + "&dzongkhag_id=" + this.form.dzongkhag_id
                     + "&gewog_id=" + this.form.gewog_id
                     + "&work_type=" + this.form.work_type
+                    + "&work_desc=" + this.form.work_desc
+                    + "&no_of_thangka=" + this.form.no_of_thangka
                     + "&search=" + this.search
                     )
                     .then(response => {
@@ -339,11 +359,6 @@
                     })
             },
 
-            // get admin
-            loadHome () {
-                axios.get("/api/home").then(({ data }) => (this.details = data));
-            },
-
             // // Create new data set
             async createHome () {
                 this.editmode = false;
@@ -367,9 +382,9 @@
         },
 
         created () {
-            this.loadHome();
+            this.getResults();
             Fire.$on('AfterCreate', () => {
-                this.loadHome();
+                this.getResults();
             })
             // setInterval(()=> this.loadAdmin(), 3000);
         },

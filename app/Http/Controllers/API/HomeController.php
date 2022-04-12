@@ -66,6 +66,28 @@ class HomeController extends Controller
                 ->paginate(7);
         }
 
+        if ($request->work_desc) {
+            // $employees = Employee::where('department_id', $request->department_id)->get();
+            $details = DB::table('bhutans')
+                ->join('dzongkhags', 'bhutans.dzongkhag_id', '=', 'dzongkhags.id')
+                ->join('gewogs', 'bhutans.gewog_id', '=', 'gewogs.id')
+                ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
+                ->where('bhutans.work_desc', $request->work_desc)
+                ->orderBy('created_at', 'desc')
+                ->paginate(7);
+        }
+
+        if ($request->no_of_thangka) {
+            // $employees = Employee::where('department_id', $request->department_id)->get();
+            $details = DB::table('bhutans')
+                ->join('dzongkhags', 'bhutans.dzongkhag_id', '=', 'dzongkhags.id')
+                ->join('gewogs', 'bhutans.gewog_id', '=', 'gewogs.id')
+                ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
+                ->where('bhutans.no_of_thangka', $request->no_of_thangka)
+                ->orderBy('created_at', 'desc')
+                ->paginate(7);
+        }
+
         return $details;
     }
 
