@@ -2,12 +2,10 @@
     <div class="container">
         <div class="row mt-4">
           <div class="col-md-12">
-            <div>
-                <h3>Filter By :</h3>
-            </div>
-            <div class="d-flex">
-                <div>
-                    <div class="form-group d-flex align-items-center">
+              <h3>Filter By:</h3>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group align-items-center">
                         <label for="paginate" class="text-nowrap mr-2 mb-0"
                             >Dzongkhag</label>
                         <select v-model="form.dzongkhag_id" class="form-control">
@@ -16,9 +14,9 @@
                         </select>
                     </div>
                 </div>
-
-                <div v-if="form.dzongkhag_id">
-                    <div class="d-flex align-items-center ml-4">
+            
+                <div class="col" v-if="form.dzongkhag_id">
+                    <div class="form-group align-items-center ml-2">
                         <label for="paginate" class="text-nowrap mr-2 mb-0"
                             >Gewog</label
                         >
@@ -29,10 +27,11 @@
                     </div>
                 </div>
 
-                <div>
-                    <div class="d-flex align-items-center ml-4">
+                <div class="col">
+                    <div class="form-group align-items-center ml-2">
                         <label for="paginate" class="text-nowrap mr-2 mb-0"
-                            >Work Type</label>
+                            >Work Type</label
+                        >
                         <select class="form-control" id="work_type" required name="work_type" v-model="form.work_type">
                             <option value="">All</option>
                             <option value="Thangka Painting">Thangka Painting</option>
@@ -41,24 +40,26 @@
                     </div>
                 </div>
 
-                <div>
-                    <div class="d-flex align-items-center ml-4">
+                <div class="col">
+                    <div class="form-group align-items-center ml-2">
                         <label for="paginate" class="text-nowrap mr-2 mb-0"
-                            >Work Description</label>
+                            >Work Description</label
+                        >
                         <select class="form-control" id="work_type" required name="work_desc" v-model="form.work_desc">
                             <option value="">All</option>
                             <option value="Detach">Detach</option>
                             <option value="Re-Attach">Re-Attach</option>
                         </select>
-                    </div> 
+                    </div>
                 </div>
 
-                <div>
-                    <div class="d-flex align-items-center ml-4">
+                <div class="col">
+                    <div class="form-group align-items-center ml-2">
                         <label for="paginate" class="text-nowrap mr-2 mb-0"
-                            >No. of Thangka</label>
-                        <input id="no_of_thangka" v-model="form.no_of_thangka" type="number" name="no_of_thangka" placeholder="No of Thangka" class="form-control">
-                    </div> 
+                            >No. of Thangka</label
+                        >
+                         <input id="no_of_thangka" v-model="form.no_of_thangka" type="number" name="no_of_thangka" placeholder="No of Thangka" class="form-control">
+                    </div>
                 </div>
             </div>
 
@@ -66,13 +67,11 @@
               <div class="card-header">
                   <div class="row">
                       <div class="col">
-                          <form>
                             <div class="form-row align-items-center">
                                 <div class="col">
                                     <input id="search" v-model="search" type="text" name="search" placeholder="Search By Lhakhang" class="form-control mb-2">
                                 </div>
                             </div>
-                          </form>
                       </div>
                       <div class="col-md-4">
                         <button type="button" class="btn btn-success"  @click="newModal">
