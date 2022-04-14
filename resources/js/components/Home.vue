@@ -8,19 +8,19 @@
                     <div class="form-group align-items-center">
                         <label for="paginate" class="text-nowrap mr-2 mb-0"
                             >Dzongkhag</label>
-                        <select v-model="form.dzongkhag_id" class="form-control">
+                        <select v-model="selectedDzongkhag" class="form-control">
                             <option value="">All</option>
                             <option v-for="item in dzongkhags" :key="item.id" :value="item.id">{{ item.dzo_name }}</option>
                         </select>
                     </div>
                 </div>
             
-                <div class="col" v-if="form.dzongkhag_id">
+                <div class="col" v-if="selectedDzongkhag">
                     <div class="form-group align-items-center ml-2">
                         <label for="paginate" class="text-nowrap mr-2 mb-0"
                             >Gewog</label
                         >
-                        <select v-model="form.gewog_id" class="form-control">
+                        <select v-model="selectedGewog" class="form-control">
                             <option value="">All</option>
                             <option v-for="gewog in gewogs" :key="gewog.id" :value="gewog.id">{{ gewog.geo_name }}</option>
                         </select>
@@ -220,6 +220,9 @@
             details: {},
             dzongkhags: {},
             gewogs: {},
+
+            selectedDzongkhag: '',
+            selectedGewog: '',
             search: '',
 
             editmode: false,
@@ -245,8 +248,8 @@
                 })
             },
 
-            'form.dzongkhag_id': function(value) {
-                 axios.get('/api/gewogs?dzo_id='+this.form.dzongkhag_id)
+            selectedDzongkhag: function(value) {
+                 axios.get('/api/gewogs?dzo_id='+this.selectedDzongkhag)
                 .then(response => {
                     // console.log(response.data);
                     this.gewogs = response.data.data;
@@ -255,7 +258,7 @@
                 this.getResults();
             },
 
-            'form.gewog_id' : function(value) {
+            selectedGewog : function(value) {
                 this.getResults();
             },
 

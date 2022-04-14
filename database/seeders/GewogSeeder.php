@@ -213,7 +213,7 @@ class GewogSeeder extends Seeder
             ['geo_name' => 'Dragteng', 'dzo_id' => '17',],
             ['geo_name' => 'Korphoog', 'dzo_id' => '17',],
             ['geo_name' => 'Langthil', 'dzo_id' => '17',],
-            ['geo_name' => 'Bubi', 'dzo_id' => '17',],
+            ['geo_name' => 'Nubi', 'dzo_id' => '17',],
             ['geo_name' => 'Tangsibji', 'dzo_id' => '17',],
 
             // Tsirang
