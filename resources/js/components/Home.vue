@@ -190,6 +190,13 @@
                                 <input id="no_of_thangka" v-model="form.no_of_thangka" type="number" name="no_of_thangka" placeholder="No of Thangka" class="form-control">
                                 <div v-if="form.errors.has('no_of_thangka')" v-html="form.errors.get('no_of_thangka')" />
                             </div>
+
+                            <div class="form-group">
+                                <label for="year">Year *</label>
+                                <input type="text" id="year" v-model="form.year" name="year" placeholder="Enter Year" class="form-control" />
+                                <div v-if="form.errors.has('year')" v-html="form.errors.get('year')" />
+                            </div>
+
                             <div class="form-group">
                                 <label for="work_desc">Remarks *</label>
                                 <textarea id="remarks" v-model="form.remarks" name="remarks" placeholder="Remarks" class="form-control" rows="3" />
@@ -238,6 +245,7 @@
                 work_type: '',
                 work_desc: '',
                 no_of_thangka: '',
+                year: '',
                 remarks: '',
             })
         }),
@@ -287,11 +295,11 @@
             getResults(page = 1) {
                 axios.get('api/home?page=' 
                     + page 
-                    + "&dzongkhag_id=" + this.form.dzongkhag_id
-                    + "&gewog_id=" + this.form.gewog_id
-                    + "&work_type=" + this.form.work_type
-                    + "&work_desc=" + this.form.work_desc
-                    + "&no_of_thangka=" + this.form.no_of_thangka
+                    + "&dzongkhag_id=" + this.selectedDzongkhag
+                    + "&gewog_id=" + this.selectedGewog
+                    + "&work_type=" + this.selectedWorkType
+                    + "&work_desc=" + this.selectedWorkDesc
+                    + "&no_of_thangka=" + this.selectedNoOfThangka
                     + "&search=" + this.search
                     )
                     .then(response => {
