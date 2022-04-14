@@ -32,7 +32,7 @@
                         <label for="paginate" class="text-nowrap mr-2 mb-0"
                             >Work Type</label
                         >
-                        <select class="form-control" id="work_type" required name="work_type" v-model="form.work_type">
+                        <select class="form-control" id="work_type" required name="work_type" v-model="selectedWorkType">
                             <option value="">All</option>
                             <option value="Thangka Painting">Thangka Painting</option>
                             <option value="Wall Painting">Wall Painting</option>
@@ -45,7 +45,7 @@
                         <label for="paginate" class="text-nowrap mr-2 mb-0"
                             >Work Description</label
                         >
-                        <select class="form-control" id="work_type" required name="work_desc" v-model="form.work_desc">
+                        <select class="form-control" id="work_type" required name="work_desc" v-model="selectedWorkDesc">
                             <option value="">All</option>
                             <option value="Detach">Detach</option>
                             <option value="Re-Attach">Re-Attach</option>
@@ -58,7 +58,7 @@
                         <label for="paginate" class="text-nowrap mr-2 mb-0"
                             >No. of Thangka</label
                         >
-                         <input id="no_of_thangka" v-model="form.no_of_thangka" type="number" name="no_of_thangka" placeholder="No of Thangka" class="form-control">
+                         <input id="no_of_thangka" v-model="selectedNoOfThangka" type="number" name="no_of_thangka" placeholder="No of Thangka" class="form-control">
                     </div>
                 </div>
             </div>
@@ -223,6 +223,9 @@
 
             selectedDzongkhag: '',
             selectedGewog: '',
+            selectedWorkType: '',
+            selectedWorkDesc: '',
+            selectedNoOfThangka: '',
             search: '',
 
             editmode: false,
@@ -266,15 +269,15 @@
                 this.getResults();
             },
 
-            'form.work_type' : function(value) {
+            selectedWorkType : function(value) {
                 this.getResults();
             },
 
-            'form.work_desc' : function(value) {
+            selectedWorkDesc : function(value) {
                 this.getResults();
             },
 
-            'form.no_of_thangka' : function(value) {
+            selectedNoOfThangka : function(value) {
                 this.getResults();
             },
         },
