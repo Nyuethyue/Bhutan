@@ -257,6 +257,49 @@ class GewogSeeder extends Seeder
             ['geo_name' => 'Shingkhar','dzo_id' => '20',],
             ['geo_name' => 'Trong','dzo_id' => '20',],
 
+
+            // Thimphu Thromde
+            ['geo_name' => 'Begana','dzo_id' => '21',],
+            ['geo_name' => 'Changtagang','dzo_id' => '21',],
+            ['geo_name' => 'Kabesa','dzo_id' => '21',],
+            ['geo_name' => 'Dechencholing','dzo_id' => '21',],
+            ['geo_name' => 'Taba','dzo_id' => '21',],
+            ['geo_name' => 'Pamtsho','dzo_id' => '21',],
+            ['geo_name' => 'Jungzhina','dzo_id' => '21',],
+            ['geo_name' => 'Langjophakha','dzo_id' => '21',],
+            ['geo_name' => 'Zilukha','dzo_id' => '21',],
+            ['geo_name' => 'Kawajangsa','dzo_id' => '21',],
+            ['geo_name' => 'Motithang','dzo_id' => '21',],
+            ['geo_name' => 'Changangkha','dzo_id' => '21',],
+            ['geo_name' => 'Yangchenphu','dzo_id' => '21',],
+            ['geo_name' => 'Changidaphu','dzo_id' => '21',],
+            ['geo_name' => 'Changzamtog','dzo_id' => '21',],
+            ['geo_name' => 'Changbangdu','dzo_id' => '21',],
+            ['geo_name' => 'Changjiji','dzo_id' => '21',],
+            ['geo_name' => 'Changjalu','dzo_id' => '21',],
+            ['geo_name' => 'Olakha','dzo_id' => '21',],
+            ['geo_name' => 'Semtokha','dzo_id' => '21',],
+            ['geo_name' => 'Babesa','dzo_id' => '21',],
+            ['geo_name' => 'Debsi','dzo_id' => '21',],
+            ['geo_name' => 'Serbithang','dzo_id' => '21',],
+
+            // Gelephu Thromde
+            ['geo_name' => 'Gelephu','dzo_id' => '22',],
+
+            // Phuentsholing Thromde
+            ['geo_name' => 'Rinchendhing','dzo_id' => '23',],
+            ['geo_name' => 'Pasakha','dzo_id' => '23',],
+
+            // SamdrupJongkhar
+            ['geo_name' => 'Dewathang','dzo_id' => '24',],
+
+
+            // Paro Thromde
+            ['geo_name' => 'Bonday','dzo_id' => '25',],
+            ['geo_name' => 'Geptey','dzo_id' => '25',],
+            ['geo_name' => 'Lamgong','dzo_id' => '25',],
+            ['geo_name' => 'Shaba','dzo_id' => '25',],
+
           ];
 
           Gewog::insert($gewogs);
