@@ -91,6 +91,7 @@
                       <th>Work Type</th>
                       <th>Work Description</th>
                       <th>Thangka #</th>
+                      <th>Year</th>
                       <th>Remarks</th>
                       <th>Action</th>
                     </tr>
@@ -103,6 +104,7 @@
                       <td>{{ detail.work_type}}</td>
                       <td>{{ detail.work_desc}}</td>
                       <td>{{ detail.no_of_thangka}}</td>
+                      <td>{{ detail.year}}</td>
                       <td>{{ detail.remarks}}</td>
                       <td>
                           <a href="#" @click="editModal(detail)">
@@ -161,7 +163,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="gewog">Lhakhang Name *</label>
+                                <label for="lhakhang">Lhakhang Name *</label>
                                 <input id="lhakhang_name" v-model="form.lhakhang_name" type="text" name="lhakhang_name" placeholder="Lhakhang Name" class="form-control">
                                 <div v-if="form.errors.has('lhakhang_name')" v-html="form.errors.get('lhakhang_name')" />
                             </div>
@@ -310,7 +312,11 @@
             // Open new modal
             newModal () {
                 this.form.reset();
-                $('#addNew').modal('show');
+                $('#addNew').modal({
+                    backdrop: 'static',
+                    keyboard: true, 
+                    show: true
+                });
             },
 
             updateHome() {
@@ -334,7 +340,11 @@
             editModal (detail) {
                 this.editmode = true;
                 this.form.reset();
-                $('#addNew').modal('show');
+                $('#addNew').modal({
+                    backdrop: 'static',
+                    keyboard: true, 
+                    show: true
+                });
                 this.form.fill(detail);
             },
 

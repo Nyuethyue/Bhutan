@@ -16,6 +16,7 @@ class Bhutan extends Model
         'work_type',
         'work_desc',
         'no_of_thangka',
+        'year',
         'remarks'
     ];
 }

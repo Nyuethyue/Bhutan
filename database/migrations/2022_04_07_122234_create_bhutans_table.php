@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('work_type');
             $table->string('work_desc');
             $table->bigInteger('no_of_thangka');
+            $table->string('year');
             $table->string('remarks');
             $table->timestamps();
         });

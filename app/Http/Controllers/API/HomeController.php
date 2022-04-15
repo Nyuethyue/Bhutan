@@ -22,7 +22,7 @@ class HomeController extends Controller
             ->join('gewogs', 'bhutans.gewog_id', '=', 'gewogs.id')
             ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
             ->orderBy('created_at', 'desc')
-            ->paginate(7);
+            ->paginate(5);
 
         if ($request->search) {
             $details = DB::table('bhutans')
@@ -32,7 +32,7 @@ class HomeController extends Controller
                 ->where('bhutans.lhakhang_name', "like", "%{$request->search}%")
                 // ->orWhere('last_name', "like", "%{$request->search}%")
                 ->orderBy('created_at', 'desc')
-                ->paginate(7);
+                ->paginate(5);
         }
         
         if ($request->dzongkhag_id) {
@@ -42,7 +42,7 @@ class HomeController extends Controller
                 ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
                 ->where('bhutans.dzongkhag_id', $request->dzongkhag_id)
                 ->orderBy('created_at', 'desc')
-                ->paginate(7);
+                ->paginate(5);
         } 
         if ($request->gewog_id) {
             // $employees = Employee::where('department_id', $request->department_id)->get();
@@ -52,7 +52,7 @@ class HomeController extends Controller
                 ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
                 ->where('bhutans.gewog_id', $request->gewog_id)
                 ->orderBy('created_at', 'desc')
-                ->paginate(7);
+                ->paginate(5);
         }
 
         if ($request->work_type) {
@@ -63,7 +63,7 @@ class HomeController extends Controller
                 ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
                 ->where('bhutans.work_type', $request->work_type)
                 ->orderBy('created_at', 'desc')
-                ->paginate(7);
+                ->paginate(5);
         }
 
         if ($request->work_desc) {
@@ -74,7 +74,7 @@ class HomeController extends Controller
                 ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
                 ->where('bhutans.work_desc', $request->work_desc)
                 ->orderBy('created_at', 'desc')
-                ->paginate(7);
+                ->paginate(5);
         }
 
         if ($request->no_of_thangka) {
@@ -85,7 +85,7 @@ class HomeController extends Controller
                 ->select('bhutans.*', 'dzongkhags.dzo_name', 'gewogs.geo_name')
                 ->where('bhutans.no_of_thangka', $request->no_of_thangka)
                 ->orderBy('created_at', 'desc')
-                ->paginate(7);
+                ->paginate(5);
         }
 
         return $details;
@@ -118,6 +118,7 @@ class HomeController extends Controller
             'work_type' => ['required', 'string'],
             'work_desc' => ['required', 'string',],
             'no_of_thangka' => ['required', 'max:9'],
+            'year' => ['required', 'string'],
             'remarks' => ['required', 'string', 'max:255'],
         ]);
 
@@ -128,6 +129,7 @@ class HomeController extends Controller
             'work_type' => $request['work_type'],
             'work_desc' => $request['work_desc'],
             'no_of_thangka' => $request['no_of_thangka'],
+            'year' => $request['year'],
             'remarks' => $request['remarks'],
         ]);
     }
@@ -172,6 +174,7 @@ class HomeController extends Controller
             'work_type' => 'required', 'string',
             'work_desc' => 'required', 'string',
             'no_of_thangka' => 'required', 'max:9',
+            'year' => 'required', 'string',
             'remarks' => 'required', 'string', 'max:255',
         ]);
 
