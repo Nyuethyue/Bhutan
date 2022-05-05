@@ -173,6 +173,9 @@
                                     <option value="">Select work Type</option>
                                     <option value="Thangka Painting">Thangka Painting</option>
                                     <option value="Wall Painting">Wall Painting</option>
+                                    <option value="Restoration">Restoration</option>
+                                    <option value="Conservation">Conservation</option>
+                                    <option value="Restoration/Conservation">Restoration / Conservation</option>
                                 </select>
                                 <div v-if="form.errors.has('work_type')" v-html="form.errors.get('work_type')" />
                             </div>
@@ -181,8 +184,9 @@
                                 <label for="work_desc">Work Description *</label>
                                  <select class="form-control" id="work_type" required name="work_desc" v-model="form.work_desc">
                                     <option value="">Select work Type</option>
-                                    <option value="Detach">Detach</option>
-                                    <option value="Re-Attach">Re-Attach</option>
+                                    <option value="Deattach">Deattach</option>
+                                    <option value="Reattach">Reattach</option>
+                                    <option value="Reattach/Deattach">Reattach / Deattach</option>
                                 </select>
                                 <div v-if="form.errors.has('work_desc')" v-html="form.errors.get('work_desc')" />
                             </div>
@@ -322,7 +326,7 @@
             updateHome() {
                 console.log('editing data');
                 // this.$Progress.start();
-                this.form.put('/api/home/'+this.form.id)
+                this.form.put('/api/home/' +this.form.id)
                 .then(() => {
                     $('#addNew').modal('hide');
                     Swal.fire(
@@ -382,6 +386,11 @@
                     })
             },
 
+            // get admin
+            loadHome () {
+                axios.get("/api/home").then(({ data }) => (this.details = data));
+            },
+
             // // Create new data set
             async createHome () {
                 this.editmode = false;
@@ -405,9 +414,9 @@
         },
 
         created () {
-            this.getResults();
+            this.loadHome();
             Fire.$on('AfterCreate', () => {
-                this.getResults();
+                this.loadHome();
             })
             // setInterval(()=> this.loadAdmin(), 3000);
         },
